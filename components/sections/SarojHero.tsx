@@ -61,6 +61,9 @@ export default function SarojHero({
     let locked = false;
     let lockedScrollY = 0;
     let touchStartY = 0;
+    let lastSeekTime = -1;
+    let lastSeekTimeStamp = 0;
+    let smoothMove = 0;
 
     /* Defensive reset — clear any stale body-lock / video state left over
        from a previous mount so the scrub always starts from a clean slate. */
@@ -108,6 +111,14 @@ export default function SarojHero({
     video.addEventListener("seeked", onSeeked);
 
     function seekTo(t: number) {
+      /* Skip asking the video for a time we've already requested this
+         frame — prevents redundant, janky seeks on every RAF tick. */
+      const now = performance.now();
+      if (Math.abs(t - lastSeekTime) < 0.002 && now - lastSeekTimeStamp < 80) {
+        return;
+      }
+      lastSeekTime = t;
+      lastSeekTimeStamp = now;
       if (isSeeking) {
         pendingTime = t;
         return;
@@ -158,8 +169,8 @@ export default function SarojHero({
 
     if (!reduceMotion) engageLock();
 
-    function addDelta(deltaY: number) {
-      targetProgress = clamp(targetProgress + deltaY / scrubDistance, 0, 1);
+    function addDelta(deltaY: number, divisor: number = scrubDistance) {
+      targetProgress = clamp(targetProgress + deltaY / divisor, 0, 1);
       if (targetProgress > 0.001) {
         setHasScrolled(true);
       }
@@ -179,7 +190,9 @@ export default function SarojHero({
     const onTouchMove = (e: TouchEvent) => {
       if (finished) return;
       const y = e.touches[0]?.clientY ?? touchStartY;
-      addDelta(touchStartY - y);
+      /* Touch gestures produce smaller pixel deltas than a desktop wheel
+         flick, so use a tighter divisor for a natural, responsive scrub. */
+      addDelta(touchStartY - y, scrubDistance * 0.25);
       touchStartY = y;
       e.preventDefault();
     };
@@ -199,7 +212,31 @@ export default function SarojHero({
     function frame() {
       currentProgress += (targetProgress - currentProgress) * 0.18;
 
-      if (duration > 0) seekTo(currentProgress * duration);
+      /* Unlock at the end — must run every frame, even when idle, so the
+         page releases the moment the video completes. */
+      if (currentProgress >= 0.99 && targetProgress >= 0.99) {
+        finish();
+        cancelAnimationFrame(rafId);
+        return;
+      }
+
+      /* Once settled, stop emitting redundant video seeks but keep the
+         loop alive so a fresh input re-engages immediately. */
+      const deltaSince = Math.abs(targetProgress - currentProgress);
+      const idle = deltaSince < 0.0004 && smoothMove < 0.0004;
+      if (idle && !isSeeking) {
+        rafId = requestAnimationFrame(frame);
+        return;
+      }
+
+      if (duration > 0) {
+        /* Quantize seeks to ~30fps so we never request the same video frame
+           twice — dramatically smoother on mobile where seeking is costly. */
+        const frameDur = 1 / 30;
+        const targetTime = currentProgress * duration;
+        const quantized = Math.round(targetTime / frameDur) * frameDur;
+        seekTo(quantized);
+      }
 
       if (videoRef.current) {
         videoRef.current.style.transform = `scale(${1 + currentProgress * 0.06})`;
@@ -212,12 +249,7 @@ export default function SarojHero({
       setHeadlineVisible(currentProgress >= 0.6);
       setCtaVisible(currentProgress >= 0.8);
 
-      if (currentProgress >= 0.99 && targetProgress >= 0.99) {
-        finish();
-        cancelAnimationFrame(rafId);
-        return;
-      }
-
+      smoothMove = deltaSince;
       rafId = requestAnimationFrame(frame);
     }
 
