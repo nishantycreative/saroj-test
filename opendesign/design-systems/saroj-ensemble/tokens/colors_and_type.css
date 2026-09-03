@@ -1,0 +1,97 @@
+/* ============================================================
+   SAROJ ENSEMBLE — color + type tokens  (REDESIGN v2)
+   Canonical tokens file. The Next.js app mirrors these values
+   in app/globals.css via Tailwind v4 @theme.
+
+   Direction: bold black-and-white editorial foundation with gold
+   as the luxury signal. White dominates; black is a real secondary
+   background (story, deal strip, booking, newsletter, footer); gold
+   is a confident accent AND a solid button fill.
+   ============================================================ */
+
+:root {
+  /* ---------- RAW COLORS ---------- */
+  /* White dominant canvas */
+  --bg-1: #ffffff;
+  --bg-1-oklch: oklch(1 0 0);
+  /* Bone — subtle warm surface for bands, badges, drawer fills */
+  --bg-2: #f4f1eb;
+  --bg-2-oklch: oklch(0.955 0.008 78);
+  /* Real black — section backgrounds + primary ink */
+  --bg-dark: #0a0a0a;
+  --bg-dark-oklch: oklch(0.13 0 0);
+  /* Soft black hover surface */
+  --bg-dark-soft: #151515;
+
+  /* Accent family — gold is now a confident fill + highlight */
+  --accent-1: #b08d57;          /* champagne gold — primary accent + CTA fill */
+  --accent-1-oklch: oklch(0.66 0.09 76);
+  --accent-2: #c6a15b;          /* lighter gold — hover tints */
+  --accent-3: #8f6f3f;          /* antique bronze — pressed states + small text on white */
+  --accent-tint: rgba(176, 141, 87, 0.18);
+
+  /* Ink family — real black ink, warm grays for secondary text */
+  --fg-1: #0a0a0a;              /* primary text / black sections */
+  --fg-2: #5f5a52;              /* secondary text on white */
+  --fg-3: #8a847a;              /* tertiary / meta text */
+  --on-dark: #f5f1e8;           /* primary text on black */
+  --on-dark-muted: #c9c3b9;     /* secondary text on black */
+
+  /* Lines */
+  --line-subtle: rgba(10, 10, 10, 0.12);
+  --line-strong: rgba(10, 10, 10, 0.28);
+  --line-gold: rgba(176, 141, 87, 0.55);
+  --line-white: rgba(255, 255, 255, 0.16);
+
+  /* ---------- RAW TYPE ---------- */
+  /* Display serif: Fraunces (variable 100–900, optical sizing) — bold
+     editorial headlines. Body: Jost (geometric sans). */
+  --font-display: "Fraunces", "Playfair Display", Georgia, serif;
+  --font-body: "Jost", "Avenir Next", "Century Gothic", system-ui, sans-serif;
+
+  /* ---------- MOTION ---------- */
+  --dur-fast: 0.35s;
+  --dur-med: 0.55s;
+  --dur-slow: 0.8s;
+  --ease-lux: cubic-bezier(0.22, 0.68, 0, 1);
+  --ease-editorial: cubic-bezier(0.16, 1, 0.3, 1);
+
+  /* Named motion variants (implemented in components/ui/Reveal.tsx) */
+  --motion-reveal: fade + 24px rise;
+  --motion-clip: clip-path wipe from bottom;
+  --motion-words: per-word staggered rise;
+  --motion-kenburns: slow continuous scale/pan;
+  --motion-tilt: cursor-reactive 3D tilt;
+  --motion-count: count-up on scroll into view;
+  --motion-rail: scroll-jacked horizontal gallery;
+
+  /* ---------- SEMANTIC SURFACES ---------- */
+  --surface-primary: var(--bg-1);      /* most sections — white */
+  --surface-secondary: var(--bg-2);    /* bone bands (reviews, calculator) */
+  --surface-elevated: var(--bg-1);
+  --surface-dark: var(--bg-dark);      /* story, deal, booking, newsletter, footer */
+  --surface-dark-soft: var(--bg-dark-soft);
+  --surface-accent-tint: var(--accent-tint);
+
+  /* ---------- SEMANTIC TYPE SCALE ---------- */
+  /* Headlines are intentionally oversized + black-weight (800–900) */
+  --h1: 900 clamp(2.6rem, 7.5vw, 6.5rem)/0.98 var(--font-display); /* hero */
+  --h2: 900 clamp(2rem, 4vw, 3.25rem)/1.02 var(--font-display);     /* section titles */
+  --h3: 700 1.35rem/1.2 var(--font-display);                        /* card titles */
+  --h4: 700 1.1rem/1.25 var(--font-display);                        /* small titles */
+  --body-lg: 400 1.125rem/1.7 var(--font-body);
+  --body: 400 1rem/1.7 var(--font-body);
+  --body-sm: 400 0.875rem/1.6 var(--font-body);
+  --caption: 400 0.8125rem/1.5 var(--font-body);
+  --label: 600 0.6875rem/1.4 var(--font-body);   /* caps labels */
+  --tracking-label: 0.2em;
+  --tracking-wide: 0.1em;
+  --tracking-display: -0.01em;   /* serif headlines track slightly tight */
+
+  /* ---------- COMMERCE SIGNALS ---------- */
+  --discount-badge: var(--accent-1) fill, var(--fg-1) text;
+  --rating-gold: var(--accent-1);
+  --urgency-tag: var(--fg-1) fill, var(--on-dark) text;
+  --cta-primary: var(--accent-1) fill, var(--fg-1) text;
+  --cta-black: var(--fg-1) fill, var(--on-dark) text;
+}

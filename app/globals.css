@@ -1,0 +1,372 @@
+@import "tailwindcss";
+
+/*
+  SAROJ ENSEMBLE — Tailwind v4 theme tokens (REDESIGN v3 — multi-color
+  fashion commerce).
+
+  Direction: premium, colorful, festive, fashion-forward Indian e-commerce.
+  The logo stays its native green (never recolored); the system around it
+  is rich and expressive:
+
+    brand green · deep forest · burgundy/wine · saffron/marigold ·
+    terracotta · coral · plum · deep blue · mustard · blush · warm ivory
+
+  Section map:
+    Announcement  → deep forest
+    Header        → warm white
+    Hero          → photographic, bold type
+    Ticker        → burgundy
+    Trust strip   → warm white
+    Categories    → clean warm white
+    Festive sale  → burgundy → saffron gradient
+    Bestsellers   → warm white
+    Story         → deep forest
+    Fabric calc   → warm ivory + saffron accents
+    Pairs         → blush
+    Atelier       → black + gold
+    Editorial     → warm white
+    Reviews       → white (Google-styled)
+    Instagram     → bone
+    Stores        → photographic / neutral
+    Styling       → deep forest + marigold
+    Blogs         → warm white
+    FAQ           → warm white
+    Newsletter    → wine
+    Footer        → near-black forest
+*/
+
+@theme inline {
+  /* ---- Surfaces ---- */
+  --color-paper: #fdfaf5;       /* dominant canvas — warm off-white */
+  --color-ivory: #fdfaf5;       /* alias → paper (drawers, header) */
+  --color-bone: #f6efe4;        /* subtle warm surface */
+  --color-beige: #f2e9dc;       /* champagne — shop/category/editorial */
+  --color-beige-deep: #e8dcc8;  /* band edges */
+  --color-blush: #e6d0cf;       /* dusty rose — blogs/discovery */
+
+  /* ---- Brand green family (logo stays native #7EC55C — never recolored) ---- */
+  --color-saroj-green: #7ec55c;
+  --color-leaf: #5da344;
+  --color-forest: #12301f;      /* deep brand green — heading/ink accent */
+  --color-forest-deep: #0b2014;
+
+  /* ---- Alternative colorway demo (Option B — light/sage green) ----
+     Switch back to the dark green by re-pointing these tokens. */
+  --color-brand-green: #84ad69; /* #84AD69 — header/footer/brand sections */
+  --color-brand-deep: #12301f;  /* previous dark green, preserved as accent */
+  --color-brand-gold: #e5d09a;  /* golden-beige / champagne accent */
+
+  /* ---- 3-tier header (Amazon-style) + footer ---- */
+  --color-hdr-ivory: #f5f0e6;   /* warm ivory header text */
+  --color-hdr-footer: #131921;  /* tier 2 — logo/utility bar + footer */
+  --color-hdr-main: #232f3e;    /* tier 3 — categories bar (lighter) */
+
+  /* ---- Ink ---- */
+  --color-black: #0f0b07;
+  --color-ink: #16100b;         /* primary text */
+  --color-espresso: #101d16;    /* legacy alias → deep forest-ink */
+  --color-espresso-soft: #16261d;
+
+  /* ---- Gold / saffron (premium accent only — never default headings) ---- */
+  --color-gold: #c79a3b;
+  --color-gold-light: #d1a044;
+  --color-bronze: #8f6f3f;
+  --color-marigold: #f2a03d;
+
+  /* ---- Fashion palette ---- */
+  --color-burgundy: #681f2a;    /* festive / campaigns / product rails */
+  --color-wine: #742431;        /* deeper oxblood */
+  --color-navy: #172b45;        /* fabric calc / trust / editorial */
+  --color-deepblue: #172b45;    /* legacy alias → navy */
+  --color-blush: #e6d0cf;       /* blogs / discovery / trending */
+  --color-plum: #452640;        /* pairs / styling / social */
+  --color-terracotta: #c05f33;
+  --color-saffron: #e88a1e;
+  --color-coral: #e2694a;
+  --color-mustard: #d9a21b;
+
+  /* ---- Section accents (v3) ---- */
+  --color-teal: #3f7a63;
+  --color-teal-deep: #2a5a47;
+  --color-amber: #9e7b4f;
+  --color-amber-deep: #7a5d3a;
+  --color-olive: #6b7a52;
+  --color-olive-muted: #8a9670;
+  --color-sienna: #8e5e3a;
+  --color-sienna-warm: #a67048;
+  --color-paper-alt: #f7f4ed;
+  --color-sage: #e9efe7;      /* soft saroj-tinted neutral (FAQ) */
+  --color-charcoal: #23201c;  /* strong near-black for headings */
+
+  /* ---- Muted text ---- */
+  --color-taupe: #5f5a52;
+  --color-taupe-light: #8a847a;
+  --color-cream: #f5f1e8;       /* light text on dark sections */
+  --color-cream-muted: #c9c3b9; /* secondary text on dark */
+  --color-mist: #a6a094;
+
+  /* ---- Lines ---- */
+  --color-line: rgba(22, 16, 11, 0.12);
+  --color-line-strong: rgba(22, 16, 11, 0.28);
+  --color-line-gold: rgba(176, 141, 87, 0.55);
+  --color-line-white: rgba(255, 255, 255, 0.16);
+
+  /* ---- Type ---- */
+  --font-display: var(--font-bodoni);
+  --font-body: var(--font-poppins);
+
+  /* ---- Motion ---- */
+  --ease-lux: cubic-bezier(0.22, 0.68, 0, 1);
+  --ease-editorial: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ---------- Base ---------- */
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: rgba(176, 141, 87, 0.3);
+}
+
+/* Thin warm scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-paper);
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(22, 16, 11, 0.3);
+  border: 3px solid var(--color-paper);
+  border-radius: 999px;
+}
+
+/* ---------- Utility classes ---------- */
+
+.container-lux {
+  width: 100%;
+  max-width: 1360px;
+  margin-inline: auto;
+  padding-inline: 1rem;
+}
+@media (min-width: 768px) {
+  .container-lux {
+    padding-inline: 2.5rem;
+  }
+}
+
+/* Arabic RTL rendering: relax Latin-font letter-spacing so Arabic glyphs
+   stay clean (Poppins has no Arabic glyphs; the system font takes over). */
+html[dir="rtl"] body {
+  letter-spacing: 0;
+}
+html[dir="rtl"] .eyebrow,
+html[dir="rtl"] .label-caps {
+  letter-spacing: 0.04em;
+}
+
+@layer components {
+  .eyebrow {
+    font-family: var(--font-body);
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--color-bronze);
+  }
+
+  /* Gold variant for dark sections where the default bronze reads too dark */
+  .eyebrow-gold {
+    font-family: var(--font-body);
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--color-gold);
+  }
+}
+
+.serif {
+  font-family: var(--font-display);
+}
+
+.hairline {
+  border-color: rgba(22, 16, 11, 0.12);
+}
+
+.hairline-gold {
+  border-color: rgba(176, 141, 87, 0.55);
+}
+
+.shadow-lux {
+  box-shadow: 0 30px 70px -28px rgba(15, 11, 7, 0.4);
+}
+
+.shadow-lux-sm {
+  box-shadow: 0 14px 36px -18px rgba(15, 11, 7, 0.3);
+}
+
+.scrim-bottom {
+  background: linear-gradient(
+    180deg,
+    transparent 35%,
+    rgba(10, 10, 10, 0.72) 100%
+  );
+}
+
+.scrim-top {
+  background: linear-gradient(
+    180deg,
+    rgba(10, 10, 10, 0.6) 0%,
+    transparent 45%
+  );
+}
+
+/* Hide horizontal scrollbars on rails / scroll areas */
+.no-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* Accessible focus */
+:focus-visible {
+  outline: 2px solid var(--color-gold);
+  outline-offset: 3px;
+}
+
+input,
+select,
+textarea,
+button {
+  font-family: inherit;
+}
+
+/* All-caps tracked label (used everywhere on product cards + UI) */
+.label-caps {
+  font-family: var(--font-body);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+/* Subtle paper-grain texture for dark sections */
+.texture-grain {
+  background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMDAiIGhlaWdodD0iMzAwIj48ZmlsdGVyIGlkPSJhIiB4PSIwIiB5PSIwIj48ZmVUdXJidWxlbmNlIGJhc2VGcmVxdWVuY3k9Ii43NSIgc3RpdGNoVGlsZXM9InN0aXRjaCIgdHlwZT0iZnJhY3RhbE5vaXNlIi8+PGZlQ29sb3JNYXRyaXggdHlwZT0ic2F0dXJhdGUiIHZhbHVlcz0iMCIvPjwvZmlsdGVyPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbHRlcj0idXJsKCNhKSIgb3BhY2l0eT0iMC4wNCIvPjwvc3ZnPg==');
+}
+
+/* ---------- Keyframes ---------- */
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes ambient-zoom {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.07);
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* ---------- Homepage hero banner sweeps (CSS-only, GPU-friendly) ---------- */
+
+/* Banner 1 — soft diagonal highlight gliding across the light beam,
+   ~7s loop. mix-blend overlay keeps it luminous without washing out. */
+.beam-sweep {
+  position: absolute;
+  top: -18%;
+  left: 34%;
+  width: 30%;
+  height: 150%;
+  background: linear-gradient(
+    100deg,
+    transparent 0%,
+    rgba(255, 242, 205, 0.45) 40%,
+    rgba(242, 160, 61, 0.28) 55%,
+    transparent 100%
+  );
+  mix-blend-mode: overlay;
+  transform: rotate(24deg) translateX(-220%);
+  animation: beam-sweep 7s cubic-bezier(0.45, 0, 0.55, 1) infinite;
+}
+
+@keyframes beam-sweep {
+  0% {
+    transform: rotate(24deg) translateX(-220%);
+  }
+  55%,
+  100% {
+    transform: rotate(24deg) translateX(260%);
+  }
+}
+
+/* Banner 2 — narrow shimmer passing across the gold-thread drape,
+   ~5.6s loop, low opacity to read as thread detail, not a loader. */
+.shimmer-sweep {
+  position: absolute;
+  top: 22%;
+  left: 14%;
+  width: 22%;
+  height: 160%;
+  background: linear-gradient(
+    100deg,
+    transparent 0%,
+    rgba(229, 208, 154, 0.5) 46%,
+    rgba(255, 248, 222, 0.55) 52%,
+    transparent 100%
+  );
+  mix-blend-mode: overlay;
+  transform: rotate(16deg) translateX(-240%);
+  animation: shimmer-sweep 5.6s cubic-bezier(0.45, 0, 0.55, 1) infinite;
+}
+
+@keyframes shimmer-sweep {
+  0% {
+    transform: rotate(16deg) translateX(-240%);
+  }
+  50%,
+  100% {
+    transform: rotate(16deg) translateX(320%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
