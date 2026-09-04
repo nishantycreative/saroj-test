@@ -194,7 +194,7 @@ export default function SarojHero({
       const y = e.touches[0]?.clientY ?? touchStartY;
       /* Touch gestures produce smaller pixel deltas than a desktop wheel
          flick, so use a tighter divisor for a natural, responsive scrub. */
-      addDelta(touchStartY - y, 900);
+      addDelta(touchStartY - y, 400);
       touchStartY = y;
       e.preventDefault();
     };
