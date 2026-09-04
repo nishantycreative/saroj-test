@@ -178,7 +178,9 @@ export default function SarojHero({
 
     const onWheel = (e: WheelEvent) => {
       if (finished) return;
-      addDelta(e.deltaY);
+      /* Aim: one wheel notch (~100px) ≈ 1/3 of the video → ~3 notches to
+         scrub fully. Adjust this divisor to taste per site. */
+      addDelta(e.deltaY, 300);
       e.preventDefault();
     };
 
@@ -192,7 +194,7 @@ export default function SarojHero({
       const y = e.touches[0]?.clientY ?? touchStartY;
       /* Touch gestures produce smaller pixel deltas than a desktop wheel
          flick, so use a tighter divisor for a natural, responsive scrub. */
-      addDelta(touchStartY - y, scrubDistance * 0.25);
+      addDelta(touchStartY - y, 900);
       touchStartY = y;
       e.preventDefault();
     };
